@@ -2,7 +2,7 @@
 
 let justTesting;
 
-console.log("testing: ", window.APP_CONFIG.testing);
+// console.log("testing: ", window.APP_CONFIG.testing);
 justTesting = window.APP_CONFIG.testing === "True";
 
 // Global to store logged-in user
