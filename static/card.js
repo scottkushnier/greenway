@@ -309,7 +309,7 @@ function setUpFocusEventsForInputFields() {
   inputs.forEach(function (input) {
     // console.log("set up focus events for ", input);
     input.addEventListener("focus", function (e) {
-      console.log("change focus on input: ", input);
+      // console.log("change focus on input: ", input);
       if (e.target.classList.contains("card-name-input")) {
         saveName = document.querySelector("#card-name").value;
         if (selectedCard && selectedCard.pmID && !cardInputsShown) {
@@ -339,11 +339,11 @@ function setUpFocusEventsForInputFields() {
           )
         ) {
           // have card name now, see if can secure card details...
-          console.log("saved:   ", saveName);
-          console.log(
-            "current: ",
-            document.querySelector("#card-name").value.toUpperCase()
-          );
+          // console.log("saved:   ", saveName);
+          // console.log(
+          //   "current: ",
+          //   document.querySelector("#card-name").value.toUpperCase()
+          // );
           tryAcquirePM();
         }
       }
@@ -582,7 +582,7 @@ document.addEventListener("click", function (e) {
     return;
   }
   if (last4Clicked) {
-    console.log("clear last 4 click");
+    // console.log("clear last 4 click");
     last4Clicked = false;
     document.querySelector(".last4").style.color = textColor;
     document.querySelector(".last4").style.backgroundColor = cardColor;
@@ -595,10 +595,10 @@ document.addEventListener("click", function (e) {
     changeColorObject = null;
   }
 
-  console.log(e.target.id);
+  // console.log(e.target.id);
 
   if (selectedPayment && e.target.id !== "amount" && e.target.id !== "charge") {
-    console.log("unselecting");
+    // console.log("unselecting");
     selectedPayment.style.backgroundColor = DEF_REC_COLOR;
     const button = document.querySelector(".charge-button");
     button.innerText = "Charge";
@@ -727,7 +727,7 @@ function getFilterCount() {
 }
 
 function hideAndShowCardsForFilter() {
-  console.log("hide and show");
+  // console.log("hide and show");
   let filterCount = 0;
   for (let card of savedCards) {
     const filterIt = cardFiltered(card);
@@ -754,7 +754,7 @@ function hideAndShowCardsForFilter() {
       card.div.style.pointerEvents = "none";
     } else if (!filterIt && !visible) {
       card.div.style.opacity = 1;
-      console.log("show: ", card.bankName);
+      // console.log("show: ", card.bankName);
       let pastIt = false;
       for (let card2 of savedCards) {
         if (card == card2) {
@@ -774,7 +774,7 @@ function hideAndShowCardsForFilter() {
       card.div.style.pointerEvents = "auto";
       if (mainCardHidden) {
         selectAndLoadCard(card);
-        console.log("selecting ", card);
+        // console.log("selecting ", card);
         showMainCard();
       }
     }
@@ -785,7 +785,7 @@ function hideAndShowCardsForFilter() {
       moveSelectedCardIndicator();
     }
   }
-  console.log("filter count: ", filterCount);
+  // console.log("filter count: ", filterCount);
   const newCard = document.querySelector(".new-card");
   newCard.style.transform = `translate(0px, ${filterCount * 112}px)`;
   if (selectedCard && cardFiltered(selectedCard)) {
@@ -798,7 +798,7 @@ function changeFilterText() {
 }
 
 document.querySelector("#filter").addEventListener("keyup", function () {
-  console.log("filter keydown");
+  // console.log("filter keydown");
   changeFilterText();
 });
 
@@ -858,7 +858,7 @@ function checkSmallCardPlacements(mouseY) {
       if (mouseCardDiv.position > node.position) {
         if (mouseY < node.midY + 30) {
           if (node.flowOffset != 1) {
-            console.log(node.card.bankName, " goes down");
+            // console.log(node.card.bankName, " goes down");
             node.flowOffset = 1;
             node.style.transform = `translate(0px, ${
               (node.position + 1) * 112
@@ -866,7 +866,7 @@ function checkSmallCardPlacements(mouseY) {
             nodeMoved = true;
           }
         } else if (node.flowOffset != 0) {
-          console.log(node.card.bankName, " goes back up");
+          // console.log(node.card.bankName, " goes back up");
           node.flowOffset = 0;
           node.style.transform = `translate(0px, ${node.position * 112}px)`;
           nodeMoved = true;
@@ -875,7 +875,7 @@ function checkSmallCardPlacements(mouseY) {
         // console.log(node.cardIndex, " is lower");
         if (mouseY > node.midY - 30) {
           if (node.flowOffset != -1) {
-            console.log(node.card.bankName, " goes up");
+            // console.log(node.card.bankName, " goes up");
             node.flowOffset = -1;
             node.style.transform = `translate(0px, ${
               (node.position - 1) * 112
@@ -883,7 +883,7 @@ function checkSmallCardPlacements(mouseY) {
             nodeMoved = true;
           }
         } else if (node.flowOffset != 0) {
-          console.log(node.card.bankName, " goes back down");
+          // console.log(node.card.bankName, " goes back down");
           node.flowOffset = 0;
           node.style.transform = `translate(0px, ${node.position * 112}px)`;
           nodeMoved = true;
@@ -956,24 +956,24 @@ function makeVisiblesArray(nodelist) {
   for (const node of nodelist) {
     const index = node.cardIndex + node.moveIndex;
     a[index] = !node.hidden;
-    console.log("setting ", index, " to ", a[index]);
+    // console.log("setting ", index, " to ", a[index]);
   }
   return a;
 }
 
 function getNewOffset(node, a, flowOffset) {
-  console.log("node: ", node, "array: ", a);
-  console.log("flow: ", flowOffset);
+  // console.log("node: ", node, "array: ", a);
+  // console.log("flow: ", flowOffset);
   let acc = 0;
   let flowOffsetLeft = flowOffset;
   let currentPosition = node.cardIndex + node.moveIndex;
-  console.log("cur: ", currentPosition);
+  // console.log("cur: ", currentPosition);
   while (
     flowOffsetLeft != 0 &&
     currentPosition >= 0 &&
     currentPosition <= 100
   ) {
-    console.log("flow left: ", flowOffsetLeft);
+    // console.log("flow left: ", flowOffsetLeft);
     if (flowOffset > 0) {
       currentPosition++;
       acc++;
@@ -995,7 +995,7 @@ function getNewOffset(node, a, flowOffset) {
 // stable (bubble) sort cards depending on new positions
 // important in order to preserve changed positions with filtering going
 function reSortSavedCards() {
-  console.log("re-sorting");
+  // console.log("re-sorting");
   let wasSwap;
   const size = savedCards.length;
   for (let i = 0; i < size; i++) {
@@ -1020,7 +1020,7 @@ function updatedMoveds() {
   const size = savedCards.length;
   for (let i = 0; i < size; i++) {
     if (savedCards[i].moved) {
-      console.log(savedCards[i].bankName, " moved.");
+      // console.log(savedCards[i].bankName, " moved.");
       savedCards[i].index = i;
       updateCard(savedCards[i]);
     }
@@ -1118,14 +1118,14 @@ function makeCardDiv(card, position, isNew) {
     mouseDownX = e.pageX;
     mouseDownY = e.pageY;
     dragCardIndex = Math.trunc((mouseDownY - 155) / 112.0);
-    console.log(
-      "mouse down: ",
-      mouseDownX,
-      " ",
-      mouseDownY,
-      "index: ",
-      dragCardIndex
-    );
+    // console.log(
+    //   "mouse down: ",
+    //   mouseDownX,
+    //   " ",
+    //   mouseDownY,
+    //   "index: ",
+    //   dragCardIndex
+    // );
     // cardDiv.style.transform = `translate(0px, ${cardDiv.position * 112}px)`;
     cardDiv.style.transition = "box-shadow 0.2s ease, opacity 0.5s ease"; // null out slow transform/translate motion, make immediate
     setUpSmallCardGeometries();
@@ -1149,12 +1149,12 @@ function makeCardDiv(card, position, isNew) {
         if (node != cardDiv && node.shown) {
           if (node.flowOffset) {
             node.position += node.flowOffset;
-            console.log(
-              "position ",
-              node.position,
-              " for ",
-              node.card.bankName
-            );
+            // console.log(
+            //   "position ",
+            //   node.position,
+            //   " for ",
+            //   node.card.bankName
+            // );
             acc += node.flowOffset;
             if (node.flowOffset) {
               node.card.moved = true;
@@ -1168,12 +1168,12 @@ function makeCardDiv(card, position, isNew) {
       }
       // console.log("offset tot: ", acc);
       cardDiv.position += -acc;
-      console.log(
-        "position ",
-        cardDiv.position,
-        " for ",
-        cardDiv.card.bankName
-      );
+      // console.log(
+      //   "position ",
+      //   cardDiv.position,
+      //   " for ",
+      //   cardDiv.card.bankName
+      // );
       if (acc != 0) {
         // let newOffset = getNewOffset(cardDiv, visiblesArray, acc);
         cardDiv.card.moved = true;
@@ -1196,7 +1196,7 @@ function makeCardDiv(card, position, isNew) {
       "box-shadow 0.2s ease, transform 0.6s ease, opacity 0.5s ease";
     mouseIsDown = false;
     // showNodes();
-    console.log("mouse up");
+    // console.log("mouse up");
   });
   div.addEventListener("click", function (e) {
     // console.log("click on div");
@@ -1413,7 +1413,7 @@ document.querySelector("#delete").addEventListener("click", function (e) {
 });
 
 function clickOnCard() {
-  console.log("click on card");
+  // console.log("click on card");
   const palette = document.querySelector(".color-palette");
   changeColorObject = "card";
   if (palette.classList.contains("hidden")) {
@@ -1673,15 +1673,15 @@ function makeExp(month, year) {
   return exp;
 }
 function tryAcquirePM() {
-  console.log("try acquire PM");
+  // console.log("try acquire PM");
   if (cardNumberGood && cardCVVGood && cardExpGood && gotNameOnCard()) {
     setTimeout(async function () {
       showTempMessage("Securing card details...");
       const pm = await generateStripePM();
-      console.log("generated pm: ", pm.paymentMethod.id);
+      // console.log("generated pm: ", pm.paymentMethod.id);
       const name = document.querySelector("#card-name").value.toUpperCase();
       const custID = await getCustomerID(name);
-      console.log("got customer ID: ", custID);
+      // console.log("got customer ID: ", custID);
       const res = await connectCustomerToPM(custID, pm.paymentMethod.id);
       if (res != true && "error" in res) {
         showTempMessage("Failure - " + res.error, (dur = 10000));
@@ -1689,7 +1689,7 @@ function tryAcquirePM() {
         disableChargeButton();
         return;
       }
-      console.log("connected customer to payment method");
+      // console.log("connected customer to payment method");
       showTempMessage("Card details secured.", (dur = 5000));
       // document.querySelector("#card-name").setAttribute("readonly", true);
       havePM = true;
@@ -1887,7 +1887,7 @@ async function stripeAttachPM(id, pm) {
 }
 
 async function connectCustomerToPM(custID, pm) {
-  console.log("connect customer to pm: ", custID, pm);
+  // console.log("connect customer to pm: ", custID, pm);
   let pms = customerPMsList[custID];
   if (pms == undefined) {
     pms = await getCustomerPMs(custID);
@@ -1895,14 +1895,14 @@ async function connectCustomerToPM(custID, pm) {
     // console.log("got current connections from stripe", pms);
   }
   if (pms && pms.indexOf(pm) >= 0) {
-    console.log("found, already connected");
+    // console.log("found, already connected");
     return true;
   }
   // showTempMessage("Processing... (attaching payment method)");
   res = await stripeAttachPM(custID, pm);
   // console.log("res from connect to pm:", res);
   if ("error" in res.data) {
-    console.log("got error at connect customer to pm");
+    // console.log("got error at connect customer to pm");
     return res.data;
   } else {
     if (customerPMsList[custID] == undefined) {
@@ -1933,7 +1933,7 @@ async function postNewCharge(amount, name, pm) {
 
 async function postRefund(amount, payment) {
   try {
-    console.log("post refund for: ", amount, payment);
+    // console.log("post refund for: ", amount, payment);
     const res = await axios.post(
       "refund",
       { amount: amount, id: payment.id },
@@ -1988,7 +1988,7 @@ document.querySelector("#charge").addEventListener("click", async function (e) {
     showTempMessage("Processing... (processing charge)");
     const custID = await getCustomerID(name);
     const res2 = await postNewCharge(amount, custID, pmID);
-    console.log("res2: ", res2);
+    // console.log("res2: ", res2);
     if (res2.data.error) {
       const msg = res2.data.error;
       showTempMessage(msg);
@@ -2311,7 +2311,7 @@ function setUpDOMForUser(userid) {
   document.querySelector("#console").classList.remove("hidden");
   document.querySelector("#console").innerText =
     "Console " + "(" + g_username + ")";
-  console.log("username: ", g_username);
+  // console.log("username: ", g_username);
   document.querySelector("#user-form").classList.add("hidden");
   // document.querySelector("#sign-up-button").classList.add("hidden");
   document.querySelector("#logout-button").classList.remove("hidden");
@@ -2377,7 +2377,7 @@ async function signupButton(e) {
     showTempLoginMessage("");
     g_userid = res.data.userid;
     g_username = username;
-    console.log("username set to: ", username);
+    // console.log("username set to: ", username);
     setUpDOMForUser(g_userid);
   }
 }
@@ -2409,7 +2409,7 @@ async function loginButton(e) {
     // console.log("res from login to server: ", res);
     g_userid = res.data.userid;
     g_username = username;
-    console.log("username set to: ", username);
+    // console.log("username set to: ", username);
     setUpDOMForUser(g_userid);
   }
 }
@@ -2434,7 +2434,7 @@ let pwShow = false;
 
 function showPwButton(e) {
   e.preventDefault();
-  console.log("show/hide");
+  // console.log("show/hide");
   if (pwShow) {
     document.getElementById("password").type = "password";
     document.querySelector(
@@ -2464,7 +2464,7 @@ function setUpButtons() {
 
 async function checkAndLoadUser() {
   g_userid = await getCurrentUserID();
-  console.log("check and load: userid: ", g_userid);
+  // console.log("check and load: userid: ", g_userid);
   if (g_userid != -1) {
     if (setUpFocusEventsForInputFields) {
       g_username = await getUsername(g_userid);
@@ -2785,7 +2785,7 @@ function addChargeToPayments(payment) {
 }
 
 document.querySelector("#login").addEventListener("click", function (e) {
-  console.log("clicked login");
+  // console.log("clicked login");
   document.querySelector("#login-button").innerText = "Login";
   document.querySelector("#login").classList.add("highlight");
   document.querySelector("#register").classList.remove("highlight");
@@ -2793,7 +2793,7 @@ document.querySelector("#login").addEventListener("click", function (e) {
 });
 
 document.querySelector("#register").addEventListener("click", function (e) {
-  console.log("clicked register");
+  // console.log("clicked register");
   document.querySelector("#login-button").innerText = "Register";
   document.querySelector("#login").classList.remove("highlight");
   document.querySelector("#register").classList.add("highlight");
@@ -2801,7 +2801,7 @@ document.querySelector("#register").addEventListener("click", function (e) {
 });
 
 document.querySelector("#logout").addEventListener("click", function (e) {
-  console.log("clicked logout");
+  // console.log("clicked logout");
   logoutButton(e);
 });
 
