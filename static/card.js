@@ -241,6 +241,7 @@ function makeColorPalette() {
   }
 
   function clickOnPaletteSpot(color) {
+    console.log("color: ", color);
     if (changeColorObject == "card") {
       changeCardColor(color);
       saveCardColorChange(color);
